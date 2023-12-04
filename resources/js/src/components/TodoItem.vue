@@ -1,21 +1,20 @@
 <template>
     <li class="p-3 list-none border-2 rounded-xl">
         <p>{{ todo.title }}</p>
-        <Button buttonTxt="삭제" @button-click="handleDelete(todo.id)" />
-        <Button buttonTxt="수정" @button-click="handleEdit" />
+        <Btn buttonTxt="삭제" @button-click="handleDelete(todo.id)" />
+        <Btn buttonTxt="수정" @button-click="handleEdit" />
     </li>
 </template>
 <script>
-import todoAPI from "../api/todoApi";
-import Button from "./common/Button.vue";
+import todoAPI from "../../api/todoApi";
+import Btn from "./common/Btn.vue";
 
 export default {
     components: {
-        Button,
+        Btn,
     },
     props: {
         todo: Object,
-        todos: Array,
     },
     setup: (props, { emit }) => {
         // todos를 반응형 참조로 만든다.
