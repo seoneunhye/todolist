@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+// 모든 요청을 welcome 뷰로 리디렉션 한다.
+Route::get('/{any}', function () {
     return view('welcome');
-});
-
+})->where('any','.*'); // 모든 URL 패턴을 해당 라우트로 리디렉션

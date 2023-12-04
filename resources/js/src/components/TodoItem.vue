@@ -1,17 +1,17 @@
 <template>
     <li class="p-3 list-none border-2 rounded-xl">
-        <p>{{ todo.title }}</p>
-        <Btn buttonTxt="삭제" @button-click="handleDelete(todo.id)" />
-        <Btn buttonTxt="수정" @button-click="handleEdit" />
+        <p class="py-3">{{ todo.title }}</p>
+        <Button buttonTxt="삭제" @button-click="handleDelete(todo.id)" />
+        <Button buttonTxt="수정" @button-click="handleEdit" />
     </li>
 </template>
 <script>
 import todoAPI from "../../api/todoApi";
-import Btn from "./common/Btn.vue";
+import Button from "./common/Button.vue";
 
 export default {
     components: {
-        Btn,
+        Button,
     },
     props: {
         todo: Object,
