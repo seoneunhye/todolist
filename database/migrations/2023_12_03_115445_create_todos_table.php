@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('title',15);
             $table->string('description',100);
-            $table->boolean('is_completed');
+            $table->boolean('is_completed')->default(false);
             $table->timestamps();
         });
     }

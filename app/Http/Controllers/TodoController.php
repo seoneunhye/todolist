@@ -3,53 +3,97 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Models\Todo;
 
 class TodoController extends Controller
 {
-    // 전체조회
+    // 투두 전체 목록 조회
     public function index(){
-        $todo = Todo::orderBy('created_at','desc')->get();
+        $todo = Todo::all();
         return response()->json($todo);
     }
-    // post
+    // 투두 등록하기
     public function create(Request $request){
-        $title = $request ->input('title');
-        $description = $request ->input('description');
-        $is_completed = $request ->input('is_completed');
 
-        $todo = new Todo();
-        $todo->title = $title;
-        $todo->description = $title;
-        $todo->is_completed = $is_completed;
-        $todo->save();
-        
-        return response()->json($todo);
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|max:15',
+            'description' => 'required|max:100'
+        ], [
+            'title.required' => '필수 값입니다.',
+            'description.required' => '필수 값 입니다.',
+            'title.max' => 'title 은 최대 15자 까지 입력 가능합니다.',
+            'description.max' => 'description 은 최대 100자까지 입력 가능합니다.'
+        ]);
+
+        // 유효성 검사 수행
+        if($validator ->fails()){
+            return response()->json(['error'=>$validator->errors()],422);
+        }
+
+        // 유효성 검사를 통과한 데이터 가져옴
+        $validatedData = $validator->validated();
+        $validatedData['is_completed'] = false;
+        // 유효성 검사를 통과한 데이터로 새 Todo 객체를 생성
+        $todo = Todo::create($validatedData);
+
+        // 생성된 Todo 객체를 JSON 형식으로 반환하며, 상태 코드 201(Created) 전송
+        return response()->json($todo, 201);
+
     }
-    // 개별조회
+    // 개별 조회
     public function read($id){
-        // $todo = Todo::where('id',$id)->first();
         $todo = Todo::find($id);
+        if(!$todo){
+            return response()->json(['error'=>'해당 투두를 찾을 수 없습니다.'],404);
+        }
         return response()->json($todo);
+
+
     }
     public function update(Request $request,$id){
         $todo = Todo::find($id);
 
-        $title = $request->input('title');
-        $description = $request->input('description');
-        $is_completed = $request->input('is_completed');
+        if(!$todo){
+            return response()->json(['error'=>'해당 투두를 찾을 수 없습니다.'],404);
+        }
 
-        $todo->title = $title;
-        $todo->description = $description;
-        $todo->is_completed = $is_completed;
-        $todo->save();
+        $validator = Validator::make($request->all(), [
+            'title' => 'sometimes|max:15',
+            'description' => 'sometimes|max:100',
+            'is_completed' => 'sometimes|boolean'
+        ], [
+            // 기타 필드별 유효성 검사 메시지
+            'title.max' => 'title 은 최대 15자 까지 입력 가능합니다.',
+            'description.max' => 'description 은 최대 100자까지 입력 가능합니다.',
+            'is_completed.boolean' => 'is_completed 는 boolean 값이어야 합니다.'
+        ]);
 
-        return response()->json($todo);
+        if(!$request->hasAny(['title','description','is_completed'])){
+            return response()->json(['error'=>'적어도 하나의 필드는 필요합니다.'],422);
+        };
+
+        if($validator->fails()){
+            return response()->json(['error'=>$validator->errors()], 422);
+        }
+        $validatedData = $validator->validated();
+        $todo->update($validatedData);
+        return response()->json($todo, 200);
+       
     }
-    public function delete($id){
-        $todo = Todo::find($id);
-        $todo->delete();
-        return response()->json(['message'=>'삭제되었습니다.']);
-
+    public function delete($id)
+    {
+        try {
+            // findOrFail : Id에 해당하는 메소드 찾음
+            // 해당 ID가 없는 경우, Laravel이 자동으로 ModelNotFoundException 예외를 발생
+            $todo = Todo::findOrFail($id);
+    
+            // Todo를 삭제합니다.
+            $todo->delete();
+            return response()->json(['message' => 'todo 목록이 성공적으로 삭제되었습니다.']);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['error' => '해당 투두를 찾을 수 없습니다.'], 404);
+        }
     }
 }
