@@ -84,16 +84,16 @@ class TodoController extends Controller
     }
     public function delete($id)
     {
-        try {
-            // findOrFail : Id에 해당하는 메소드 찾음
-            // 해당 ID가 없는 경우, Laravel이 자동으로 ModelNotFoundException 예외를 발생
-            $todo = Todo::findOrFail($id);
-    
-            // Todo를 삭제합니다.
-            $todo->delete();
-            return response()->json(['message' => 'todo 목록이 성공적으로 삭제되었습니다.']);
-        } catch (ModelNotFoundException $e) {
-            return response()->json(['error' => '해당 투두를 찾을 수 없습니다.'], 404);
+        $todo = Todo::find($id);
+        if(!$todo){
+            return response()->json(['error'=>'해당 투두를 찾을 수 없습니다.'],404);
         }
+        // Todo를 삭제합니다.
+        $todo->delete();
+        return response()->json(['message' => 'todo 목록이 성공적으로 삭제되었습니다.']);
+        
+    
+    
+    
     }
 }

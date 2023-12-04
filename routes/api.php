@@ -20,9 +20,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/todo',[TodoController::class,'index']);
-Route::post('/todo',[TodoController::class,'create']);
-Route::get('/todo/{id}',[TodoController::class,'read']);
-Route::put('/todo/{id}',[TodoController::class,'update']);
-Route::delete('/todo/{id}',[TodoController::class,'delete']);
+Route::get('/todos',[TodoController::class,'index']);
+Route::post('/todos',[TodoController::class,'create']);
+Route::get('/todos/{id}',[TodoController::class,'read']);
+Route::put('/todos/{id}',[TodoController::class,'update']);
+Route::delete('/todos/{id}',[TodoController::class,'delete']);
 

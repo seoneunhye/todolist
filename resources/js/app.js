@@ -1,7 +1,5 @@
 import { createApp } from "vue";
-import HelloWorld from "./components/Test.vue";
 
-const app = createApp({});
-app.component("hello-world", HelloWorld).mount("#app");
+import App from "./App.vue";
 
-require("./bootstrap");
+createApp(App).mount("#app");
