@@ -1,7 +1,13 @@
 <template>
     <li class="p-3 list-none border-2 rounded-xl">
-        <strong class="block mb-2">{{ todo.title }}</strong>
-        <p class="block mb-2">{{ todo.description }}</p>
+        <strong
+            :class="{ 'line-through': todo.is_completed }"
+            class="block mb-2"
+            >{{ todo.title }}</strong
+        >
+        <p :class="{ 'line-through': todo.is_completed }" class="block mb-2">
+            {{ todo.description }}
+        </p>
         <Button buttonTxt="삭제" @button-click="handleDelete(todo.id)" />
         <Button buttonTxt="수정" @button-click="handleOpenEditModal" />
     </li>

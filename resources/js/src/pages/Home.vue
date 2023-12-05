@@ -1,12 +1,11 @@
 <template>
     <h1 class="pt-8 font-mono text-4xl font-extrabold text-center">ToDoList</h1>
     <div class="flex justify-end pr-4">
-        <button
-            @click="handleMoveToRegistration"
-            class="p-1 mt-4 border-2 rounded-xl"
-        >
-            할 일 입력하기
-        </button>
+        <Button
+            @button-click="handleMoveToRegistration"
+            buttonTxt="할 일 입력하기"
+            class="p-1 mt-4 font-bold text-blue-600 border-2 rounded-xl"
+        ></Button>
     </div>
     <div class="m-4 border-2">
         <h2 class="p-2 text-xl font-semibold text-center">오늘의 할 일</h2>
@@ -16,7 +15,7 @@
             v-for="todo in todos"
             :key="todo.id"
             :todo="todo"
-            @delete-todo="handleDelete"
+            @delete-todo="handleApplyDeletedState"
         />
     </ul>
 </template>
@@ -25,6 +24,7 @@
 import TodoItem from "../components/TodoItem.vue";
 import todoAPI from "../api/todoApi";
 import EditModal from "../components/common/EditModal.vue";
+import Button from "../components/common/Button.vue";
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 
@@ -33,6 +33,7 @@ export default {
     components: {
         TodoItem,
         EditModal,
+        Button,
     },
     setup(props, { emit }) {
         const isShow = ref(false);
@@ -50,7 +51,8 @@ export default {
 
         onMounted(fetchTodos);
 
-        const handleDelete = (todoId) => {
+        // 삭제 API 통신 적용 후 todos reactive 에 삭제된 상태 적용하기
+        const handleApplyDeletedState = (todoId) => {
             const index = todos.value.findIndex((todo) => todo.id === todoId);
             if (index !== -1) {
                 todos.value.splice(index, 1);
@@ -63,7 +65,7 @@ export default {
 
         return {
             todos,
-            handleDelete,
+            handleApplyDeletedState,
             handleMoveToRegistration,
             isShow,
         };
