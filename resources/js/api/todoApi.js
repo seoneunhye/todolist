@@ -13,7 +13,11 @@ const todoAPI = {
     },
     async deleteTodo(todoId) {
         const todo = await axios.delete(`${API_BASE_URL}/todos/${todoId}`);
-        return todo;
+        return todo.data;
+    },
+    async addTodo(todoData) {
+        const todo = await axios.post(`${API_BASE_URL}/todos`, todoData);
+        return todo.data;
     },
 };
 

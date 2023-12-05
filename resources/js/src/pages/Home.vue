@@ -17,9 +17,10 @@
             :key="todo.id"
             :todo="todo"
             @delete-todo="handleDelete"
+            @update-todo="handleOpenUpdateModal"
         />
     </ul>
-    <Modal />
+    <Modal v-if="isShow" @show-modal="isShow = $event" />
 </template>
 
 <script>
@@ -36,6 +37,7 @@ export default {
         Modal,
     },
     setup() {
+        const isShow = ref(false);
         const router = useRouter();
         const todos = ref([]);
 
@@ -61,10 +63,16 @@ export default {
             router.push("/registration");
         };
 
+        const handleOpenUpdateModal = (todoId) => {
+            isShow.value = true;
+        };
+
         return {
             todos,
             handleDelete,
             handleMoveToRegistration,
+            handleOpenUpdateModal,
+            isShow,
         };
     },
 };

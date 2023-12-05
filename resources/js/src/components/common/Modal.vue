@@ -3,7 +3,6 @@
         class="fixed inset-0 w-full h-full overflow-y-auto bg-gray-600 bg-opacity-50"
     >
         <form
-            action=""
             class="relative p-5 mx-auto bg-white border rounded-md shadow-lg top-48 w-96"
         >
             <label for="title" class="mb-1">오늘의 할 일</label><br />
@@ -23,7 +22,7 @@
             ></textarea>
             <br />
             <Button buttonTxt="수정" />
-            <Button buttonTxt="취소" />
+            <Button buttonTxt="취소" @button-click="handleCancel" />
         </form>
     </div>
 </template>
@@ -34,5 +33,12 @@ import Button from "./Button.vue";
 export default {
     name: "Modal",
     components: { Button },
+    setup(props, { emit }) {
+        const handleCancel = () => {
+            emit("show-modal", false);
+        };
+
+        return { handleCancel };
+    },
 };
 </script>
