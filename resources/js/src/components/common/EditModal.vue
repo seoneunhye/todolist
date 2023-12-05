@@ -31,8 +31,8 @@
                 id="is_completed"
                 v-model="todo.is_completed"
             /><br />
-            <Button buttonTxt="수정완료" @button-click="handleUpdateForm" />
-            <Button buttonTxt="취소" @button-click="handleCancel" />
+            <Button buttonTxt="수정완료" @click-button="handleUpdateForm" />
+            <Button buttonTxt="취소" @click-button="handleCancel" />
         </form>
     </div>
 </template>

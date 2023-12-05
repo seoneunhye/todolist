@@ -1,15 +1,20 @@
 <template>
     <li class="p-3 list-none border-2 rounded-xl">
-        <strong
-            :class="{ 'line-through': todo.is_completed }"
-            class="block mb-2"
-            >{{ todo.title }}</strong
-        >
-        <p :class="{ 'line-through': todo.is_completed }" class="block mb-2">
-            {{ todo.description }}
-        </p>
-        <Button buttonTxt="삭제" @button-click="handleDelete(todo.id)" />
-        <Button buttonTxt="수정" @button-click="handleOpenEditModal" />
+        <div>
+            <strong
+                :class="{ 'line-through': todo.is_completed }"
+                class="block mb-2"
+                >🔸{{ todo.title }}</strong
+            >
+            <p
+                :class="{ 'line-through': todo.is_completed }"
+                class="block h-32 p-2 mb-2 overflow-auto break-words bg-yellow-400 rounded-md"
+            >
+                {{ todo.description }}
+            </p>
+        </div>
+        <Button buttonTxt="삭제" @click-button="handleDelete(todo.id)" />
+        <Button buttonTxt="수정" @click-button="handleOpenEditModal" />
     </li>
     <EditModal v-if="isShow" :todo="todo" @show-modal="handleCancelEditModal" />
 </template>

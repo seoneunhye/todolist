@@ -2,7 +2,7 @@
     <h1 class="pt-8 font-mono text-4xl font-extrabold text-center">ToDoList</h1>
     <div class="flex justify-end pr-4">
         <Button
-            @button-click="handleMoveToRegistration"
+            @click-button="handleMoveToRegistration"
             buttonTxt="할 일 입력하기"
             class="p-1 mt-4 font-bold text-blue-600 border-2 rounded-xl"
         ></Button>

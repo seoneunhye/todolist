@@ -20252,23 +20252,23 @@ var _hoisted_1 = {
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Button");
   var _component_EditModal = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("EditModal");
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([{
       'line-through': $props.todo.is_completed
     }, "block mb-2"])
-  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.todo.title), 3 /* TEXT, CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
+  }, "🔸" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.todo.title), 3 /* TEXT, CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([{
       'line-through': $props.todo.is_completed
-    }, "block mb-2"])
-  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.todo.description), 3 /* TEXT, CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
+    }, "block h-32 p-2 mb-2 overflow-auto break-words bg-yellow-400 rounded-md"])
+  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.todo.description), 3 /* TEXT, CLASS */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
     buttonTxt: "삭제",
-    onButtonClick: _cache[0] || (_cache[0] = function ($event) {
+    onClickButton: _cache[0] || (_cache[0] = function ($event) {
       return _ctx.handleDelete($props.todo.id);
     })
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
     buttonTxt: "수정",
-    onButtonClick: _ctx.handleOpenEditModal
-  }, null, 8 /* PROPS */, ["onButtonClick"])]), _ctx.isShow ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_EditModal, {
+    onClickButton: _ctx.handleOpenEditModal
+  }, null, 8 /* PROPS */, ["onClickButton"])]), _ctx.isShow ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_EditModal, {
     key: 0,
     todo: $props.todo,
     onShowModal: _ctx.handleCancelEditModal
@@ -20294,7 +20294,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
     type: "{{buttonType}}",
     onClick: _cache[0] || (_cache[0] = function ($event) {
-      return _ctx.$emit('button-click', $event);
+      return _ctx.$emit('click-button', $event);
     }),
     "class": "p-1 mt-2 mr-2 border-2 rounded-lg"
   }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.buttonTxt), 1 /* TEXT */);
@@ -20366,11 +20366,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelCheckbox, $props.todo.is_completed]]), _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
     buttonTxt: "수정완료",
-    onButtonClick: $setup.handleUpdateForm
-  }, null, 8 /* PROPS */, ["onButtonClick"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
+    onClickButton: $setup.handleUpdateForm
+  }, null, 8 /* PROPS */, ["onClickButton"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
     buttonTxt: "취소",
-    onButtonClick: $setup.handleCancel
-  }, null, 8 /* PROPS */, ["onButtonClick"])])]);
+    onClickButton: $setup.handleCancel
+  }, null, 8 /* PROPS */, ["onClickButton"])])]);
 }
 
 /***/ }),
@@ -20428,10 +20428,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Button");
   var _component_TodoItem = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("TodoItem");
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [_hoisted_1, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
-    onButtonClick: $setup.handleMoveToRegistration,
+    onClickButton: $setup.handleMoveToRegistration,
     buttonTxt: "할 일 입력하기",
     "class": "p-1 mt-4 font-bold text-blue-600 border-2 rounded-xl"
-  }, null, 8 /* PROPS */, ["onButtonClick"])]), _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_4, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.todos, function (todo) {
+  }, null, 8 /* PROPS */, ["onClickButton"])]), _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_4, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.todos, function (todo) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_TodoItem, {
       key: todo.id,
       todo: todo,

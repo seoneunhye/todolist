@@ -91,9 +91,6 @@ class TodoController extends Controller
         // Todo를 삭제합니다.
         $todo->delete();
         return response()->json(['message' => 'todo 목록이 성공적으로 삭제되었습니다.']);
-        
-    
-    
     
     }
 }
