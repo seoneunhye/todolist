@@ -17,16 +17,14 @@
             :key="todo.id"
             :todo="todo"
             @delete-todo="handleDelete"
-            @update-todo="handleOpenUpdateModal"
         />
     </ul>
-    <Modal v-if="isShow" @show-modal="isShow = $event" />
 </template>
 
 <script>
 import TodoItem from "../components/TodoItem.vue";
-import todoAPI from "../../api/todoApi";
-import Modal from "../components/common/Modal.vue";
+import todoAPI from "../api/todoApi";
+import EditModal from "../components/common/EditModal.vue";
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 
@@ -34,9 +32,9 @@ export default {
     name: "Home",
     components: {
         TodoItem,
-        Modal,
+        EditModal,
     },
-    setup() {
+    setup(props, { emit }) {
         const isShow = ref(false);
         const router = useRouter();
         const todos = ref([]);
@@ -63,19 +61,12 @@ export default {
             router.push("/registration");
         };
 
-        const handleOpenUpdateModal = (todoId) => {
-            isShow.value = true;
-        };
-
         return {
             todos,
             handleDelete,
             handleMoveToRegistration,
-            handleOpenUpdateModal,
             isShow,
         };
     },
 };
 </script>
-
-<style scoped></style>

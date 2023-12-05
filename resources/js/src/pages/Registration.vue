@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import todoAPI from "../../api/todoApi";
+import todoAPI from "../api/todoApi";
 import Button from "../components/common/Button.vue";
 import { reactive } from "vue";
 import { useRouter } from "vue-router";

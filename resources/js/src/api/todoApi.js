@@ -19,6 +19,13 @@ const todoAPI = {
         const todo = await axios.post(`${API_BASE_URL}/todos`, todoData);
         return todo.data;
     },
+    async updateTodo(todoData, todoId) {
+        const todo = await axios.put(
+            `${API_BASE_URL}/todos/${todoId}`,
+            todoData
+        );
+        return todo.data;
+    },
 };
 
 export default todoAPI;

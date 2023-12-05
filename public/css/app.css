@@ -510,6 +510,9 @@ video {
 .mb-1 {
   margin-bottom: 0.25rem;
 }
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
 .mb-4 {
   margin-bottom: 1rem;
 }
@@ -524,6 +527,9 @@ video {
 }
 .mt-8 {
   margin-top: 2rem;
+}
+.block {
+  display: block;
 }
 .flex {
   display: flex;
@@ -595,10 +601,6 @@ video {
 }
 .p-5 {
   padding: 1.25rem;
-}
-.py-3 {
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
 }
 .pr-4 {
   padding-right: 1rem;

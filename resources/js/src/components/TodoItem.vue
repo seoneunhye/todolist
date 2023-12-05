@@ -1,23 +1,29 @@
 <template>
     <li class="p-3 list-none border-2 rounded-xl">
-        <p class="py-3">{{ todo.title }}</p>
+        <strong class="block mb-2">{{ todo.title }}</strong>
+        <p class="block mb-2">{{ todo.description }}</p>
         <Button buttonTxt="삭제" @button-click="handleDelete(todo.id)" />
-        <Button buttonTxt="수정" @button-click="handleEdit(todo.id)" />
+        <Button buttonTxt="수정" @button-click="handleOpenEditModal" />
     </li>
+    <EditModal v-if="isShow" :todo="todo" @show-modal="handleCancelEditModal" />
 </template>
 <script>
-import todoAPI from "../../api/todoApi";
+import { ref } from "vue";
+import todoAPI from "../api/todoApi";
 import Button from "./common/Button.vue";
+import EditModal from "./common/EditModal.vue";
 
 export default {
     components: {
         Button,
+        EditModal,
     },
     props: {
         todo: Object,
     },
+    emits: ["delete-todo", "update-todo"],
     setup: (props, { emit }) => {
-        // todos를 반응형 참조로 만든다.
+        const isShow = ref(false);
 
         const handleDelete = async (todoId) => {
             try {
@@ -29,13 +35,19 @@ export default {
                 console.error(error);
             }
         };
-        const handleEdit = (todoId) => {
-            emit("update-todo", todoId);
+        const handleOpenEditModal = () => {
+            isShow.value = true;
+        };
+
+        const handleCancelEditModal = (modalState) => {
+            isShow.value = modalState;
         };
 
         return {
             handleDelete,
-            handleEdit,
+            handleOpenEditModal,
+            handleCancelEditModal,
+            isShow,
         };
     },
 };

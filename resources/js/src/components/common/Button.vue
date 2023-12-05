@@ -1,7 +1,7 @@
 <template>
     <button
         type="{{buttonType}}"
-        @click="handleClick"
+        @click="$emit('button-click', $event)"
         class="p-1 mt-2 mr-2 border-2 rounded-lg"
     >
         {{ buttonTxt }}
@@ -18,12 +18,7 @@ export default {
             default: "button",
         },
     },
-    setup(props, { emit }) {
-        const handleClick = () => {
-            emit("button-click");
-        };
-        return { handleClick };
-    },
+    setup(props, { emit }) {},
 };
 </script>
 
