@@ -16,7 +16,12 @@
         <Button buttonTxt="삭제" @click-button="handleDelete(todo.id)" />
         <Button buttonTxt="수정" @click-button="handleOpenEditModal" />
     </li>
-    <EditModal v-if="isShow" :todo="todo" @show-modal="handleCancelEditModal" />
+    <EditModal
+        v-if="isShow"
+        :todo="todo"
+        @show-modal="handleCancelEditModal"
+        @update-todo="handleUpdateTodo"
+    />
 </template>
 <script>
 import { ref } from "vue";
@@ -31,10 +36,20 @@ export default {
     },
     props: {
         todo: Object,
+        todos: Array,
     },
     emits: ["delete-todo", "update-todo"],
     setup: (props, { emit }) => {
         const isShow = ref(false);
+
+        const handleUpdateTodo = (updatedTodo) => {
+            const index = props.todos.findIndex(
+                (todo) => todo.id === updatedTodo.id
+            );
+            if (index !== -1) {
+                props.todos[index] = updatedTodo;
+            }
+        };
 
         const handleDelete = async (todoId) => {
             try {
@@ -55,6 +70,7 @@ export default {
         };
 
         return {
+            handleUpdateTodo,
             handleDelete,
             handleOpenEditModal,
             handleCancelEditModal,

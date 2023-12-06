@@ -8,7 +8,7 @@
             <label for="title" class="mb-1">오늘의 할 일</label><br />
             <input
                 type="text"
-                v-model="todo.title"
+                v-model="updatedTodo.title"
                 id="title"
                 placeholder="15자 이내로 작성"
                 class="w-5/6 mb-4 border-2 rounded-md"
@@ -17,7 +17,7 @@
             <label for="description">할 일 상세 기록</label><br />
             <textarea
                 id="description"
-                v-model="todo.description"
+                v-model="updatedTodo.description"
                 cols="10"
                 rows="5"
                 placeholder="100자 이내로 작성"
@@ -29,7 +29,7 @@
             <input
                 type="checkbox"
                 id="is_completed"
-                v-model="todo.is_completed"
+                v-model="updatedTodo.is_completed"
             /><br />
             <Button buttonTxt="수정완료" @click-button="handleUpdateForm" />
             <Button buttonTxt="취소" @click-button="handleCancel" />
@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import { ref } from "vue";
 import Button from "./Button.vue";
 import todoAPI from "../../api/todoApi";
 
@@ -49,11 +50,13 @@ export default {
     },
     emits: ["show-modal", "update-todo"],
     setup(props, { emit }) {
+        const updatedTodo = ref({ ...props.todo });
+
         //props를 통해 수정하기 이전값 불러오고, 수정한 값 api통신하기
         const handleUpdateForm = async (event) => {
             event.preventDefault();
-
-            await todoAPI.updateTodo(props.todo, props.todo.id);
+            await todoAPI.updateTodo(updatedTodo.value, props.todo.id);
+            emit("update-todo", updatedTodo.value);
             emit("show-modal", false);
         };
 
@@ -65,6 +68,7 @@ export default {
         return {
             handleCancel,
             handleUpdateForm,
+            updatedTodo,
         };
     },
 };

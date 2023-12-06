@@ -34,6 +34,7 @@ class TodoController extends Controller
 
         // 유효성 검사를 통과한 데이터 가져옴
         $validatedData = $validator->validated();
+        // is_completed 항목 false 로 기본값 설정
         $validatedData['is_completed'] = false;
         // 유효성 검사를 통과한 데이터로 새 Todo 객체를 생성
         $todo = Todo::create($validatedData);
@@ -60,19 +61,15 @@ class TodoController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'title' => 'sometimes|max:15',
-            'description' => 'sometimes|max:100',
-            'is_completed' => 'sometimes|boolean'
+            'title' => 'max:15',
+            'description' => 'max:100',
+            'is_completed' => 'boolean'
         ], [
             // 기타 필드별 유효성 검사 메시지
             'title.max' => 'title 은 최대 15자 까지 입력 가능합니다.',
             'description.max' => 'description 은 최대 100자까지 입력 가능합니다.',
             'is_completed.boolean' => 'is_completed 는 boolean 값이어야 합니다.'
         ]);
-
-        if(!$request->hasAny(['title','description','is_completed'])){
-            return response()->json(['error'=>'적어도 하나의 필드는 필요합니다.'],422);
-        };
 
         if($validator->fails()){
             return response()->json(['error'=>$validator->errors()], 422);

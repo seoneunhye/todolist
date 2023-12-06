@@ -24,7 +24,7 @@
             required
         ></textarea>
         <ErrorMessage :errorMessage="errorMessage.description" />
-        <Button buttonTxt="등록하기" />
+        <Button buttonType="submit" buttonTxt="등록하기" />
     </form>
 </template>
 

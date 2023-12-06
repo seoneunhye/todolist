@@ -15,6 +15,7 @@
             v-for="todo in todos"
             :key="todo.id"
             :todo="todo"
+            :todos="todos"
             @delete-todo="handleApplyDeletedState"
         />
     </ul>
